@@ -24,3 +24,13 @@
   []
   (apply + (evens-of-fib 4000000)))
 
+(defn problem3 []
+  (loop [prime 2
+         stack (filter #(not= 0 (mod % 2)) (drop 3 (range)))
+         n 600851475143]
+    (if (= prime n)
+      prime
+      (let [prime' (first stack)
+            stack' (filter #(not= 0 (mod % prime')) stack)
+            n' (if (= 0 (mod n prime)) (quot n prime) n)]
+        (recur prime' stack' n')))))
