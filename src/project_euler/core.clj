@@ -53,3 +53,10 @@
     (first (for [n (iterate #(+ % init) init)
                  :when (every? #(= 0 (mod n %)) (range 6 20))]
              n))))
+
+(defn square [n] (* n n))
+
+(def problem6
+  (let [sum (apply + (map square (range 1 101)))
+        square (square (apply + (range 1 101)))]
+    (- square sum)))
