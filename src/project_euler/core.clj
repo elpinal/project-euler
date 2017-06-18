@@ -85,3 +85,19 @@
               c' (* c c)]
         :when (and (= 1000 (+ a b c)) (= a' (+ b' c')))]
     (* a b c)))
+
+(defn is-prime [n]
+  "for odd number which is greater than 2"
+  (cond
+    (< n 9) true
+    (= 0 (mod n 3)) false
+    :else (let [r (java.lang.Math/floor (java.lang.Math/sqrt n))]
+            (loop [f 5]
+              (cond
+                (< r f) true
+                (= 0 (mod n f)) false
+                (= 0 (mod n (+ f 2))) false
+                :else (recur (+ f 6)))))))
+
+(defn problem10 []
+  (+ 2 (apply + (filter is-prime (range 3 2000000 2)))))
