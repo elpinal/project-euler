@@ -34,3 +34,16 @@
             stack' (filter #(not= 0 (mod % prime')) stack)
             n' (if (= 0 (mod n prime)) (quot n prime) n)]
         (recur prime' stack' n')))))
+
+(defn is-prod-of-3-digit [n]
+  (not (empty? (for [x (range 999 99 -1)
+                     y (range x 99 -1)
+                     :when (= n (* x y))]
+                 true))))
+
+(defn problem4 []
+  (first (for [n1 (take 10 (iterate #(- % 100001) 999999))
+               n2 (take 10 (iterate #(- % 10010) n1))
+               n3 (take 10 (iterate #(- % 1100) n2))
+               :when (is-prod-of-3-digit n3)]
+           n3)))
