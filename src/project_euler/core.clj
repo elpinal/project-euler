@@ -47,3 +47,9 @@
                n3 (take 10 (iterate #(- % 1100) n2))
                :when (is-prod-of-3-digit n3)]
            n3)))
+
+(defn problem5 []
+  (let [init (* 3 5 7 11 13 17 19)]
+    (first (for [n (iterate #(+ % init) init)
+                 :when (every? #(= 0 (mod n %)) (range 6 20))]
+             n))))
