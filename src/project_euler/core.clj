@@ -60,3 +60,14 @@
   (let [sum (apply + (map square (range 1 101)))
         square (square (apply + (range 1 101)))]
     (- square sum)))
+
+(defn primes [xs ps n]
+  (let [p (first xs)
+        xs' (rest xs)]
+    (cond
+      (= n 0) (first ps)
+      (every? #(not= 0 (mod p %)) ps) (recur xs' (cons p ps) (dec n))
+      :else  (recur xs' ps n))))
+
+(defn problem7 []
+  (primes (range 3 300000 2) '(2) 10000))
