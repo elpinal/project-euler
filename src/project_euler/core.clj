@@ -139,3 +139,35 @@
                                      ys (take 4 (iterate dec y))]]
                            (map #(nth (nth lines %2) %1) xs ys))]
     (apply max (map #(apply * %) (concat lines4 cols4 dia-left-bottom dia-right-bottom)))))
+
+(defn count-prime-factor [x]
+  (loop [n x
+         m {}]
+    (cond
+      (even? n) (recur (quot n 2) (countup m 2))
+      (< n 9) (countup m n)
+      (= 0 (mod n 3)) (recur (quot n 3) (countup m 3))
+      :else (let [r (java.lang.Math/floor (java.lang.Math/sqrt n))
+                  p (loop [f 5]
+                      (cond
+                        (< r f) n
+                        (= 0 (mod n f)) f
+                        (= 0 (mod n (+ f 2))) (+ f 2)
+                        :else (recur (+ f 6))))]
+              (if (= p n) (countup m n)
+                  (recur (quot n p) (countup m p)))))))
+
+(defn countup [m k]
+  (let [v (m k)]
+    (if (nil? v)
+      (assoc m k 1)
+      (assoc m k (inc v)))))
+
+(defn problem12 []
+  (loop [n 31]
+    (let [an (* (/ 2) n (inc n))
+          m (count-prime-factor an)
+          factors (apply * (map inc (vals m)))]
+      (if (< 500 factors)
+        an
+        (recur (inc n))))))
