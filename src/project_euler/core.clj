@@ -290,3 +290,6 @@
 
 (defn problem14 []
   (first (apply max-key second (map #(list % (chain %)) (range 1 1000000)))))
+
+(defn problem15 []
+  (/ (apply * (range 40N 20 -1)) (apply * (range 20N 1 -1))))
