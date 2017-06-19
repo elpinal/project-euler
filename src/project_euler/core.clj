@@ -1,4 +1,5 @@
-(ns project-euler.core)
+(ns project-euler.core
+  (:require [clojure.math.numeric-tower]))
 
 (defn is3or5 [n]
   (let [i3 (mod n 3)
@@ -293,3 +294,11 @@
 
 (defn problem15 []
   (/ (apply * (range 40N 20 -1)) (apply * (range 20N 1 -1))))
+
+(defn problem16 []
+  (->> 1000
+       (clojure.math.numeric-tower/expt 2)
+       .toString
+       (partition 1)
+       (map #(Character/digit (first %) 10))
+       (apply +)))
