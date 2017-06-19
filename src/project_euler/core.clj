@@ -140,6 +140,12 @@
                            (map #(nth (nth lines %2) %1) xs ys))]
     (apply max (map #(apply * %) (concat lines4 cols4 dia-left-bottom dia-right-bottom)))))
 
+(defn countup [m k]
+  (let [v (m k)]
+    (if (nil? v)
+      (assoc m k 1)
+      (assoc m k (inc v)))))
+
 (defn count-prime-factor [x]
   (loop [n x
          m {}]
@@ -156,12 +162,6 @@
                         :else (recur (+ f 6))))]
               (if (= p n) (countup m n)
                   (recur (quot n p) (countup m p)))))))
-
-(defn countup [m k]
-  (let [v (m k)]
-    (if (nil? v)
-      (assoc m k 1)
-      (assoc m k (inc v)))))
 
 (defn problem12 []
   (loop [n 31]
