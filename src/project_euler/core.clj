@@ -278,3 +278,15 @@
        (apply +)
        .toString
        (take 10)))
+
+(defn collatz [n]
+  (cond
+    (even? n) (quot n 2)
+    :else (-> n (* 3) inc)))
+
+(defn chain [n]
+  (count
+   (take-while #(not= % 1) (iterate collatz n))))
+
+(defn problem14 []
+  (first (apply max-key second (map #(list % (chain %)) (range 1 1000000)))))
